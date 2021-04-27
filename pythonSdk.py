@@ -37,25 +37,25 @@ host = ('0.0.0.0', 81)
 
 class Resquest(BaseHTTPRequestHandler):
     def do_GET(self):
-        if (self.path == '/pay' or self.path == '/') :
+        if (self.path == '/pay' or self.path == '/'):
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
             self.wfile.write(json.dumps(Glocash.pay()).encode())
     def do_POST(self):
-        if (self.path == '/notify') :
+        if (self.path == '/notify'):
             self.send_response(200)
             self.end_headers()
             l = self.headers['Content-length']
             p = self.rfile.read(int(l))
             self.wfile.write(Glocash.notify(str(p, "utf-8")).encode())
 class Glocash():
-    SANDBOX_URL = 'https://sandbox.glocashpayment.com/gateway/payment/index'
-    LIVE_URL = 'https://pay.glocashpayment.com/gateway/payment/index'
+    #TODO 请仔细查看TODO的注释 请仔细查看TODO的注释 请仔细查看TODO的注释
+    SANDBOX_URL = 'https://sandbox.glocashpayment.com/gateway/payment/index' #TODO 测试秘钥 商户后台查看
+    LIVE_URL = 'https://pay.glocashpayment.com/gateway/payment/index' #TODO 正式秘钥 商户后台查看(必须材料通过以后才能使用)
     SANDBOX_KEY = '9dc6a0682d7cb718fa140d0b8017a01c4e9a9820beeb45da020601a2e0a63514' #TODO 测试秘钥 商户后台查看
     LIVE_KEY = 'c2e38e7d93dbdd3efaa61028c3d27a1a2577df84fa62ae752df587b4f90b8ef7' #TODO 正式秘钥 商户后台查看(必须材料通过以后才能使用)
     def pay():
-        #TODO 请仔细查看TODO的注释 请仔细查看TODO的注释 请仔细查看TODO的注释
         se = requests.session()
         currentTime = str(time.time())
         currentRandom = str(random.randint(1000,9999))
@@ -68,7 +68,7 @@ class Glocash():
             'BIL_METHOD': 'C01', #请求方式
             'BIL_PRICE': '37.86', #价格
             'BIL_CURRENCY': 'USD', #币种
-            'BIL_CC3DS': '1', #是否开启3ds 1 开启 0 不开启
+            'BIL_CC3DS': '1', #TODO 是否开启3ds 1 开启 0 不开启
             'URL_SUCCESS': 'https://www.merchant77.com/success.php?order=ORDER1234567890', #支付成功跳转地址
             'URL_FAILED': 'https://www.merchant77.com/failed.php?order=ORDER1234567890', #支付失败跳转地址
             'URL_NOTIFY': 'https://www.merchant77.com/notify.php?order=ORDER1234567890', #异步回调跳转地址
@@ -77,7 +77,7 @@ class Glocash():
             'BIL_GOODSNAME': 'Smart Phone P238', #商品名称 必填 否则无法结算
             'BIL_QUANTITY': '1', #商品数量
         }
-        if (POST_DATA['REQ_SANDBOX'] == 1) :
+        if (POST_DATA['REQ_SANDBOX'] == 1):
             SECRET_KEY = Glocash.SANDBOX_KEY
             POST_URL = Glocash.SANDBOX_URL
         else:
