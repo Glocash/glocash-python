@@ -30,7 +30,6 @@ import json
      *   MC   | 5200000000000023 | 03/2022 | 431 | 74  3ds paid
      *   MC   | 5200000000000106 | 04/2022 | 578 | 104 3ds paid
      *
-     *  想测试失败 可以填错年月日或者ccv即可
 """
 
 host = ('0.0.0.0', 81)
@@ -64,6 +63,7 @@ class Glocash():
             'REQ_TIMES': currentTime, #请求时间
             'REQ_EMAIL': '2101653220@qq.com', #商户邮箱 商户后台申请的邮箱
             'REQ_INVOICE': 'TEST' + currentTime + currentRandom, #订单号
+            'REQ_APPID': 380, #应用ID
             'CUS_EMAIL': 'customer789@gmail.com', #客户邮箱
             'BIL_METHOD': 'C01', #请求方式
             'BIL_PRICE': '37.86', #价格
